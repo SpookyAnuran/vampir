@@ -17,10 +17,9 @@ public class Vampir implements ModInitializer {
     public void onInitialize() {
         LOGGER.info("Vampir loaded.");
 
-        // Register custom commands
         VampirCommands.register();
+        VampirSunlight.register();
 
-        // Apply 'human' tag when player joins or respawns
         ServerEntityEvents.ENTITY_LOAD.register((entity, world) -> {
             if (entity instanceof ServerPlayerEntity player) {
                 applyHumanTag(player);
