@@ -1,0 +1,40 @@
+{
+	"schemaVersion": 1,
+	"id": "vampir",
+	"version": "${version}",
+	"name": "Vampir",
+	"description": "Simple, multiplayer friendly vampires.",
+	"authors": [
+		"SpookyAnuran"
+	],
+	"contact": {
+		"homepage": "https://github.com/SpookyAnuran",
+		"sources": "https://github.com/SpookyAnuran/vampir"
+	},
+	"license": "MIT",
+	"icon": "assets/vampir/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.vampir.Vampir"
+		],
+		"fabric-datagen": [
+			"com.vampir.VampirDataGenerator"
+		],
+      "client": [
+        "com.vampir.VampirClient"
+      ]
+	},
+	"mixins": [
+		"vampir.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.17.3",
+		"minecraft": "~1.21.1",
+		"java": ">=21",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
