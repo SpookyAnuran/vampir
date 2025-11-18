@@ -4,7 +4,15 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "ExampleMixin",
-    "ZombieEntityMixin"
+    "ZombieEntityMixin",
+    "SkeletonEntityMixin",
+    "BoggedEntityMixin",
+    "HuskEntityMixin",
+    "DrownedEntityMixin",
+    "WitchEntityMixin",
+    "StrayEntityMixin",
+    "WitherSkeletonEntityMixin"
+
   ],
   "injectors": {
     "defaultRequire": 1
