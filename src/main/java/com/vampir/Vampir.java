@@ -21,6 +21,10 @@ public class Vampir implements ModInitializer {
         VampirSunlight.register();
         VampirZombies.register();
         VampirDiet.register();
+        VampirRitual.register();
+        ModEffects.register();
+        VampirInfection.register();
+        VampirDisease.register();
 
         ServerEntityEvents.ENTITY_LOAD.register((entity, world) -> {
             if (entity instanceof ServerPlayerEntity player) {
