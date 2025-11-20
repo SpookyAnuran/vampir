@@ -24,4 +24,3 @@ public final class ModEffects {
                 .orElseThrow(() -> new IllegalStateException("Failed to obtain registry entry for vampir_disease"));
     }
 }
-

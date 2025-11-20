@@ -53,15 +53,22 @@ public final class VampirInfection {
             if (last != null && now - last < BITE_COOLDOWN_MS) return ActionResult.PASS;
             lastBite.put(attacker.getUuid(), now);
 
+            // immediate launch feedback (always play/spawn to mask who is infected)
+            BlockPos hitPos = t.getBlockPos();
+            ServerWorld sw = (ServerWorld) t.getWorld();
+            sw.playSound(null, hitPos, SoundEvents.ENTITY_PLAYER_ATTACK_CRIT, net.minecraft.sound.SoundCategory.PLAYERS, 1.0f, 1.0f);
+            sw.playSound(null, hitPos, SoundEvents.ITEM_AXE_STRIP, net.minecraft.sound.SoundCategory.PLAYERS, 0.9f, 1.0f);
+            sw.spawnParticles(ParticleTypes.SOUL, hitPos.getX() + 0.5, hitPos.getY() + 1.0, hitPos.getZ() + 0.5, 12, 0.25, 0.25, 0.25, 0.02);
+
             double roll = ThreadLocalRandom.current().nextDouble();
             if (roll < BITE_INFECTION_CHANCE) {
                 RegistryEntry.Reference<StatusEffect> diseaseEntry = ModEffects.VAMPIR_DISEASE_ENTRY;
                 if (diseaseEntry != null) {
                     // construct StatusEffectInstance using the registry entry as your mappings expect
-                    victim.addStatusEffect(new StatusEffectInstance(diseaseEntry, EFFECT_DURATION, 0, false, true, true));
+                    victim.addStatusEffect(new StatusEffectInstance(diseaseEntry, 20 * 60 * 5, 0, false, true, true));
 
                     BlockPos pos = victim.getBlockPos();
-                    ServerWorld sw = (ServerWorld) victim.getWorld();
+                    sw = (ServerWorld) victim.getWorld();
                     sw.spawnParticles(ParticleTypes.DRIPPING_LAVA, pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5, 8, 0.2, 0.2, 0.2, 0.01);
                     sw.playSound(null, pos, SoundEvents.ENTITY_GENERIC_HURT, net.minecraft.sound.SoundCategory.PLAYERS, 1.0f, 0.9f);
                 }

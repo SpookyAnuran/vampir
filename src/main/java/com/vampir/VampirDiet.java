@@ -68,14 +68,14 @@ public class VampirDiet {
     private static int getBloodValue(LivingEntity entity) {
         // Illagers explicitly allowed as valuable targets
         if (entity instanceof PillagerEntity || entity instanceof VindicatorEntity ||
-                entity instanceof EvokerEntity || entity instanceof IllusionerEntity) return 6; // 3 bars
+                entity instanceof EvokerEntity || entity instanceof IllusionerEntity) return 4; // 2 bars
 
         if (entity instanceof ChickenEntity || entity instanceof ParrotEntity) return 1; // half bar
         if (entity instanceof SheepEntity || entity instanceof HorseEntity || entity instanceof CowEntity ||
                 entity instanceof PolarBearEntity || entity instanceof PandaEntity || entity instanceof PigEntity) return 2; // full bar
 
         String type = entity.getType().toString();
-        if (type.contains("villager") || type.contains("witch")) return 8; // 4 bars
+        if (type.contains("villager") || type.contains("witch")) return 4; // 2 bars
 
         if (entity instanceof Monster) return 0; // exclude other hostile/undead
 
