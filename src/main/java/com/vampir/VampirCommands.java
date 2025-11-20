@@ -1,4 +1,4 @@
-package com.vampir.command;
+package com.vampir;
 
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
