@@ -1,11 +1,12 @@
 
 This is intended to be a very simple vampire mod that is multiplayer friendly. feel free to nab this and tweak/port it to your hearts desire! (this was originally a datapack, but due to broken or moved 1.21.1 hooks, was ported to fabric.) This is my first minecraft mod, so enjoy the spaghetti! 
 
-Mechanics: - Vampire and human tagging system. Vampirism can be toggled with [ /vampir curevampire @p ] and [/vampir addvampire @p ] by operators. There is a ritual, and a bite/infection mechanic as well. You can see your status by doing the command [ /vampir status @p ] For thematic reasons, without an admin, there is no cure to this curse. 
+Mechanics: 
+- Vampire and human tagging system. Vampirism can be toggled with [ /vampir curevampire @p ] and [/vampir addvampire @p ] by operators. There is a ritual, and a bite/infection mechanic as well. You can see your status by doing the command [ /vampir status @p ] For thematic reasons, without an admin, there is no cure to this curse. 
 
 - The bite attack vampires get is simple, you sprint at a player with both hands empty to trigger the attack. If it lands, there is a 50/50 chance you trigger the blood sickness. Feature is located in VampirInfection.java Blood sickness is a potion effect. if you die or sleep with the effect, you turn into a vampire. buckets of milk and waiting the short timer out is how one keeps thier humanity! (BUG: potion effect has an icon, but is not connecting to it for some odd reason, the lang file also needs to be created. working on this ASAP! ModEffects.java & VampirDisease.java is where the potion effect is stored.) 
 
--The ritual to become a vampire is also very simple, and is a placeholder. You will need a 2x2 black terracotta floor and a diamond. right click the platform with the diamond to become a biter... if you are a vampire already, the ritual will not fire, and thus will not eat your diamond. VampirRitual.java is the file with this feature's code. 
+- The ritual to become a vampire is also very simple, and is a placeholder. You will need a 2x2 black terracotta floor and a diamond. right click the platform with the diamond to become a biter... if you are a vampire already, the ritual will not fire, and thus will not eat your diamond. VampirRitual.java is the file with this feature's code. 
 
 - Vampires rot in the sun. I chose a non-fire method of damaging a vampire in sunlight. This is to prevent many mods from giving a player fire immunity and bypassing this weakness, it also serves to give a nod to more classic folklore about vampires being based on misunderstood decomposition. fun fact: vampires burning in the sun was not a thing until the nosferatu film, it got adopted into most vampire lore after. (BUG: Currently does not turn off when it is raining. It needs an added weather check...) This file is separate from the others so forks and personal edits can swap out the effect easier, look for VampirSunlight.java 
 
