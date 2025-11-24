@@ -11,8 +11,6 @@ public final class VampirDisease extends StatusEffect {
         super(StatusEffectCategory.HARMFUL, 0x330000);
     }
 
-    Identifier id = Identifier.of("vampir", "textures/mob_effect/vampir_disease.png");
-
     public static void register() {
     }
 

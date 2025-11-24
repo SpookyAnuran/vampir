@@ -33,6 +33,7 @@ public class Vampir implements ModInitializer {
         VampirDiet.register();
         VampirRitual.register();
         VampirBoon.register();
+        VampirStaticBoon.register();
 
 // double wooden sword damage against players tagged as vampires (simple, no DamageSource)
         AttackEntityCallback.EVENT.register((PlayerEntity attacker, World world, Hand hand, Entity target, EntityHitResult hit) -> {
@@ -55,6 +56,7 @@ public class Vampir implements ModInitializer {
             }
         });
     }
+
 
     private void applyHumanTag(ServerPlayerEntity player) {
         if (!player.getCommandTags().contains("vampir:human") &&
