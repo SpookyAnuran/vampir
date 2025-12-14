@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    { "item": "minecraft:glass_bottle" },
+    { "item": "minecraft:mutton" },
+    { "item": "minecraft:porkchop" },
+    { "item": "minecraft:beef" }
+  ],
+  "result": {
+    "item": "vampir:blood_bottle",
+    "count": 1
+  }
+}

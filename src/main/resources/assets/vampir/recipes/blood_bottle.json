@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    { "item": "minecraft:glass_bottle" },
+    { "tag": "vampir:raw_meats" },
+    { "tag": "vampir:raw_meats" },
+    { "tag": "vampir:raw_meats" }
+  ],
+  "result": {
+    "item": "vampir:blood_bottle",
+    "count": 1
+  }
+}
