@@ -16,6 +16,6 @@ Mechanics:
 
 - (needs implemented: Water breathing) this feature will be located in VampirBoon.java I need a lag free way to implement it continuously. Bare handed attacks to a boost to damage. hold an item to reduce your damage for the sake of feeding.(BUG fixed!) 
 
-- Vampire diet As of now, Vampires can punch living things for hunger, or eat raw meat. mushroom stew and golden apples and carrots work for more reasons. they can also craft a blood bottle using three kinds of raw red meat for more hunger. (Bug: internal datapack will not load.)
+- Vampire diet As of now, Vampires can punch living things for hunger, or eat raw meat. mushroom stew and golden apples and carrots work for lore reasons. they can also craft a blood bottle using three kinds of raw red meat for more hunger. (Bug: internal datapack will not load.)
 
-- Vampires sleeping during the day & coffin item: Pending, will be added to VampirSleep.java. I also need to figure out how to make block items, and work on blockbench. Planned now: adding the ability to sleep in a bed during the day. i need help implementing this...
+- Vampires sleeping during the day & coffin item: Pending, will be added to VampirSleep.java. Planned now: adding the ability to sleep in a bed during the day. i need help implementing this...
