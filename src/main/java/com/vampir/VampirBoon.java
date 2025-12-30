@@ -1,14 +1,13 @@
 package com.vampir;
 
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents; // ADDED
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.registry.Registries;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -30,18 +29,6 @@ public final class VampirBoon {
     private static final EntityAttributeModifier ATTACK_SPEED_MOD =
             new EntityAttributeModifier(ATTACK_SPEED_MOD_ID, 2.0, EntityAttributeModifier.Operation.ADD_VALUE);
 
-    // claw item ids
-    private static final Identifier DIAMOND_CLAW_ID = Identifier.tryParse("vampir", "diamondclaw");
-    private static final Identifier IRON_CLAW_ID    = Identifier.tryParse("vampir", "ironclaw");
-    private static final Identifier GOLD_CLAW_ID    = Identifier.tryParse("vampir", "goldclaw");
-    private static final Identifier NETHERITE_CLAW_ID = Identifier.tryParse("vampir", "netheriteclaw");
-
-    // cached Item references (initialized once inside register)
-    private static Item DIAMOND_CLAW;
-    private static Item IRON_CLAW;
-    private static Item GOLD_CLAW;
-    private static Item NETHERITE_CLAW;
-
     // effect timing tuned to avoid tick spam
     private static final int SHELTER_EFFECT_DURATION = 100; // ticks (5s)
     private static final int SHELTER_EFFECT_REAPPLY_THRESHOLD = 20; // ticks left before reapply
@@ -53,11 +40,6 @@ public final class VampirBoon {
     private VampirBoon() {}
 
     public static void register() {
-        // initialize cached items once
-        DIAMOND_CLAW = Registries.ITEM.get(DIAMOND_CLAW_ID);
-        IRON_CLAW     = Registries.ITEM.get(IRON_CLAW_ID);
-        GOLD_CLAW     = Registries.ITEM.get(GOLD_CLAW_ID);
-        NETHERITE_CLAW= Registries.ITEM.get(NETHERITE_CLAW_ID);
 
         ServerTickEvents.START_SERVER_TICK.register(server -> {
             for (ServerWorld world : server.getWorlds()) {
@@ -75,8 +57,7 @@ public final class VampirBoon {
                     BlockPos pos = p.getBlockPos();
                     boolean currentlySheltered = !isInDirectSunlight(world, pos); // true when sheltered
                     boolean hasEmptyHand = p.getMainHandStack().isEmpty() && p.getOffHandStack().isEmpty();
-                    boolean hasClaw = isClawItem(p.getMainHandStack().getItem()) || isClawItem(p.getOffHandStack().getItem());
-                    boolean shouldHaveModifiers = hasEmptyHand || hasClaw;
+                    boolean shouldHaveModifiers = hasEmptyHand;
 
                     // EFFECTS: ensure Speed is present while sheltered (reapply only if expiring)
                     if (currentlySheltered) {
@@ -105,16 +86,34 @@ public final class VampirBoon {
                 }
             }
         });
+
+        // ADDED: Reapply on respawn with minimal changes
+        ServerPlayerEvents.AFTER_RESPAWN.register((oldPlayer, newPlayer, alive) -> {
+            UUID id = newPlayer.getUuid();
+
+            // Only act for vampires
+            if (!newPlayer.getCommandTags().contains(TAG_VAMPIRE)) {
+                hadModifiers.remove(id);
+                return;
+            }
+
+            // Reset the state tracker for this player so tick logic can re-evaluate
+            hadModifiers.remove(id);
+
+            // If they currently meet the condition (empty hands), apply immediately
+            boolean hasEmptyHand = newPlayer.getMainHandStack().isEmpty() && newPlayer.getOffHandStack().isEmpty();
+            if (hasEmptyHand) {
+                addModifiersIfMissing(newPlayer);
+                hadModifiers.put(id, true);
+            }
+            // If not empty-handed, the next tick will handle add/remove normally.
+        });
     }
 
     private static boolean isInDirectSunlight(ServerWorld world, BlockPos pos) {
         if (!world.isDay()) return false;
         BlockPos headPos = pos.up();
         return world.isSkyVisible(headPos) && world.getLightLevel(headPos) > 0;
-    }
-
-    private static boolean isClawItem(Item item) {
-        return item == DIAMOND_CLAW || item == IRON_CLAW || item == GOLD_CLAW || item == NETHERITE_CLAW;
     }
 
     private static void addModifiersIfMissing(PlayerEntity p) {
@@ -165,3 +164,4 @@ public final class VampirBoon {
         }
     }
 }
+

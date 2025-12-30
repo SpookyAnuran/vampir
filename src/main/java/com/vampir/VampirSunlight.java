@@ -18,9 +18,10 @@ public class VampirSunlight {
             for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
                 if (player.getCommandTags().contains("vampir:vampire")) {
                     boolean isDay = player.getWorld().isDay();
+                    boolean isRaining = player.getWorld().isRaining();
                     boolean canSeeSky = player.getWorld().isSkyVisible(player.getBlockPos());
 
-                    if (isDay && canSeeSky && !player.isSubmergedInWater()) {
+                    if (isDay && canSeeSky && !isRaining && !player.isSubmergedInWater()) {
                         // Increase exposure counter
                         int exposure = exposureTicks.getOrDefault(player.getUuid(), 0) + 1;
                         exposureTicks.put(player.getUuid(), exposure);

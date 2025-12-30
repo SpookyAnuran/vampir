@@ -8,7 +8,7 @@
     { "item": "minecraft:beef" }
   ],
   "result": {
-    "item": "vampir:blood_bottle",
+    "id": "vampir:blood_bottle",
     "count": 1
   }
 }

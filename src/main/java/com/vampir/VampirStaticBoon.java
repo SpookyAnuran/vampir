@@ -27,7 +27,7 @@ public final class VampirStaticBoon {
 
                 // 1) Permanent Water Breathing
                 player.addStatusEffect(new StatusEffectInstance(
-                        StatusEffects.WATER_BREATHING, 220, 0, true, false, true));
+                        StatusEffects.WATER_BREATHING, 220, 0, false, false, false));
 
                 // 2) Hunger immunity
                 if (player.hasStatusEffect(StatusEffects.HUNGER)) {
@@ -37,7 +37,7 @@ public final class VampirStaticBoon {
                 // 3) Toggleable Night Vision
                 if (nightVisionEnabled) {
                     player.addStatusEffect(new StatusEffectInstance(
-                            StatusEffects.NIGHT_VISION, 220, 0, true, false, true));
+                            StatusEffects.NIGHT_VISION, 220, 0, true, false, false));
                 } else {
                     player.removeStatusEffect(StatusEffects.NIGHT_VISION);
                 }
